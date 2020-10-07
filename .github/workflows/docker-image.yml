@@ -16,9 +16,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-          repository: ytaku/php-cli:${{ matrix.version }}
+          repository: ytaku/php-cli
           build_args: PHP_VERSION=${{ matrix.version }}
-          tags: ytaku/php-cli:${{ matrix.version }}
+          tags: ${{ matrix.version }}
 
       - name: push to ghcr.io
         uses: docker/build-push-action@v1
@@ -26,6 +26,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           registry: ghcr.io
-          repository: taku-yamashita/php-cli:${{ matrix.version }}
+          repository: taku-yamashita/php-cli
           build_args: PHP_VERSION=${{ matrix.version }}
-          tags: ytaku/php-cli:${{ matrix.version }}
+          tags: ${{ matrix.version }}
