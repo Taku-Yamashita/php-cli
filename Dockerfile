@@ -1,5 +1,6 @@
 ARG PHP_VERSION
 FROM php:${PHP_VERSION}-cli
+LABEL org.opencontainers.image.source=https://github.com/taku-yamashita/php-cli
 
 SHELL ["/bin/bash", "-c"]
 ARG PHP_VERSION
@@ -7,7 +8,7 @@ ARG PHP_EXTENSIONS="gd intl zip bcmath pdo_mysql sockets mbstring soap xsl mcryp
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN apt-get update && apt-get install -y \
-        unzip \
+        unzip git \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng-dev libicu-dev libzip-dev libonig-dev libxml2-dev libxslt1-dev libmcrypt-dev libsodium-dev\
