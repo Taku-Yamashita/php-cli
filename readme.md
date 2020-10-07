@@ -1,4 +1,5 @@
 ![](https://github.com/Taku-Yamashita/php-cli/workflows/Build/badge.svg)
+![](https://github.com/Taku-Yamashita/php-cli/workflows/Test/badge.svg)
 
 docker run --rm -v "$PWD":/app -w /app ytaku/php-cli:${VERSION} -v
 

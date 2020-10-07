@@ -1,0 +1,21 @@
+name: Test
+on: push
+jobs:
+  test_image:
+    name: Test Docker Image
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [7.1, 7.2, 7.3, 7.4]
+    steps:
+      - name: checkout branch
+        uses: actions/checkout@v2
+
+      - name: build image
+        run: docker build . --build-arg PHP_VERSION=${{ matrix.version }} -t ytaku/php-cli:${{ matrix.version }}
+
+      - name: test
+        run: |
+          docker run --rm ytaku/php-cli:${{ matrix.version }} -v
+          test $(docker run --rm ytaku/php-cli:${{ matrix.version }} -v | \
+          awk 'NR==1' | awk -F ' ' '{print $2}' | awk -F '.' '{print $1"."$2}') = ${{ matrix.version }}
