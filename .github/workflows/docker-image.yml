@@ -17,7 +17,6 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
           repository: ytaku/php-cli:${{ matrix.version }}
-          image: ytaku/php-cli:${{ matrix.version }}
           build_args: PHP_VERSION=${{ matrix.version }}
           tags: ytaku/php-cli:${{ matrix.version }}
 
@@ -28,6 +27,5 @@ jobs:
           password: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           registry: ghcr.io
           repository: taku-yamashita/php-cli:${{ matrix.version }}
-          image: ytaku/php-cli:${{ matrix.version }}
           build_args: PHP_VERSION=${{ matrix.version }}
           tags: ytaku/php-cli:${{ matrix.version }}
