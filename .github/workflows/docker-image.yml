@@ -19,6 +19,7 @@ jobs:
           repository: ytaku/php-cli:${{ matrix.version }}
           image: ytaku/php-cli:${{ matrix.version }}
           build_args: PHP_VERSION=${{ matrix.version }}
+          tags: ytaku/php-cli:${{ matrix.version }}
 
       - name: push to ghcr.io
         uses: docker/build-push-action@v1
@@ -29,3 +30,4 @@ jobs:
           repository: taku-yamashita/php-cli:${{ matrix.version }}
           image: ytaku/php-cli:${{ matrix.version }}
           build_args: PHP_VERSION=${{ matrix.version }}
+          tags: ytaku/php-cli:${{ matrix.version }}
