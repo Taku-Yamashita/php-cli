@@ -6,7 +6,6 @@ SHELL ["/bin/bash", "-c"]
 ARG PHP_VERSION
 ARG PHP_EXTENSIONS="gd intl zip bcmath pdo_mysql sockets mbstring soap xsl mcrypt sodium"
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN apt-get update && apt-get install -y \
         unzip git \
         libfreetype6-dev \
@@ -19,3 +18,7 @@ RUN apt-get update && apt-get install -y \
                PHP_PACKAGES+="${PKG} "; \
     done \
     && docker-php-ext-install -j$(nproc) ${PHP_PACKAGES}
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && composer config -g repos.packagist composer https://packagist.jp \
+    && composer global require hirak/prestissimo
