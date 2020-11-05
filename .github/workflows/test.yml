@@ -7,15 +7,16 @@ jobs:
     strategy:
       matrix:
         version: [7.1, 7.2, 7.3, 7.4]
+        composer_version: [v1, v2]
     steps:
       - name: checkout branch
         uses: actions/checkout@v2
 
       - name: build image
-        run: docker build . --build-arg PHP_VERSION=${{ matrix.version }} -t ytaku/php-cli:${{ matrix.version }}
+        run: docker build . --build-arg PHP_VERSION=${{ matrix.version }} COMPOSER_VERSION=${{ matrix.composer_version }} -t ytaku/php-cli:${{ matrix.version }}-${{ matrix.composer_version }}
 
       - name: test
         run: |
-          docker run --rm ytaku/php-cli:${{ matrix.version }} -v
-          test $(docker run --rm ytaku/php-cli:${{ matrix.version }} -v | \
+          docker run --rm ytaku/php-cli:${{ matrix.version }}-${{ matrix.composer_version }} -v
+          test $(docker run --rm ytaku/php-cli:${{ matrix.version }}-${{ matrix.composer_version }} -v | \
           awk 'NR==1' | awk -F ' ' '{print $2}' | awk -F '.' '{print $1"."$2}') = ${{ matrix.version }}

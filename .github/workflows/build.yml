@@ -7,6 +7,7 @@ jobs:
     strategy:
       matrix:
         version: [7.1, 7.2, 7.3, 7.4]
+        composer_version: [v1, v2]
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
@@ -17,8 +18,8 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
           repository: ytaku/php-cli
-          build_args: PHP_VERSION=${{ matrix.version }}
-          tags: ${{ matrix.version }}
+          build_args: PHP_VERSION=${{ matrix.version }},COMPOSER_VERSION=${{ matrix.composer_version }}
+          tags: ${{ matrix.version }}-${{ matrix.composer_version }}
 
       - name: push to ghcr.io
         uses: docker/build-push-action@v1
@@ -27,5 +28,5 @@ jobs:
           password: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           registry: ghcr.io
           repository: taku-yamashita/php-cli
-          build_args: PHP_VERSION=${{ matrix.version }}
-          tags: ${{ matrix.version }}
+          build_args: PHP_VERSION=${{ matrix.version }},COMPOSER_VERSION=${{ matrix.composer_version }}
+          tags: ${{ matrix.version }}-${{ matrix.composer_version }}
