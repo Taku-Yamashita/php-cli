@@ -13,7 +13,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: build image
-        run: docker build . --build-arg PHP_VERSION=${{ matrix.version }} COMPOSER_VERSION=${{ matrix.composer_version }} -t ytaku/php-cli:${{ matrix.version }}-${{ matrix.composer_version }}
+        run: docker build .
+          --build-arg PHP_VERSION=${{ matrix.version }}
+          --build-arg COMPOSER_VERSION=${{ matrix.composer_version }}
+          -t ytaku/php-cli:${{ matrix.version }}-${{ matrix.composer_version }}
 
       - name: test
         run: |
